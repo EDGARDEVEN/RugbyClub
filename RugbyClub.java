@@ -1,3 +1,4 @@
+// Import statements for nessesary classes
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,16 +12,19 @@ class Staff {
     private static int staffCount = 0;
     private String name;
     private int staffNumber;
-
+    
+    // Constructor for staff class
     public Staff(String name) {
         this.name = name;
         this.staffNumber = ++staffCount;
     }
 
+    // Getter method for the name of the staff member
     public String getName() {
         return name;
     }
 
+    // Getter method for the staff number
     public int getStaffNumber() {
         return staffNumber;
     }
@@ -29,32 +33,32 @@ class Staff {
 // Club Staff
 class ClubStaff extends Staff {
     private String type;
-
+    // Constructor for ClubStaff class
     public ClubStaff(String name, String type) {
         super(name);
         this.type = type;
     }
-
+    // Getter method for the type of club staff
     public String getType() {
         return type;
     }
 }
 
-// Coaching Staff
+// Coaching Staff class
 class CoachingStaff extends Staff {
     private int qualificationLevel;
     private String type;
-
+    // Constructor for CoachingStaff class
     public CoachingStaff(String name, int qualificationLevel, String type) {
         super(name);
         this.qualificationLevel = qualificationLevel;
         this.type = type;
     }
-
+    // Getter method for the qualification level of coaching staff
     public int getQualificationLevel() {
         return qualificationLevel;
     }
-
+    // Getter method for the type of coaching staff
     public String getType() {
         return type;
     }
@@ -67,26 +71,30 @@ class Player {
     private int age;
     private int playerNumber;
 
+    // Constructor for Player class
     public Player(String name, int age) {
         this.name = name;
         this.age = age;
         this.playerNumber = ++playerCount;
     }
 
+    // Getter method for the name of the player
     public String getName() {
         return name;
     }
 
+    // Getter method for the age of the player
     public int getAge() {
         return age;
     }
 
+    // Getter method for the Player number
     public int getPlayerNumber() {
         return playerNumber;
     }
 }
 
-// Training Group
+// Training Group class
 class TrainingGroup {
     private static int groupCount = 0;
     private String identifier;
@@ -95,6 +103,7 @@ class TrainingGroup {
     private CoachingStaff coach;
     private List<Player> players;
 
+    // Constructor for TrainingGroup class
     public TrainingGroup(String identifier, int playerCount, String trainingDay) {
         this.identifier = identifier;
         this.playerCount = playerCount;
@@ -102,36 +111,37 @@ class TrainingGroup {
         this.players = generatePlayers();
     }
 
+    // Getter method for the identifier of the training group
     public String getIdentifier() {
         return identifier;
     }
-
+    // Getter method for the player count in the training group
     public int getPlayerCount() {
         return playerCount;
     }
-
+    // Getter method for the training day of the group
     public String getTrainingDay() {
         return trainingDay;
     }
-
+    // Getter method for the coach of the group
     public CoachingStaff getCoach() {
         return coach;
     }
-
+    // Setter method to assign a coach to the group
     public void setCoach(CoachingStaff coach) {
         this.coach = coach;
     }
-
+    // Getter method for the list of players in the group
     public List<Player> getPlayers() {
         return players;
     }
-
+    // Static method to generate a random name
     public static String generateRandomName() {
         String[] names = {"Rodgers", "Kevin", "Jane", "Keziah", "Mark", "Kamau", "Otieno", "Junior", "Deven", "Eryka"};
         Random random = new Random();
         return names[random.nextInt(names.length)];
     }
-
+    // Private method to generate a list of players for the group
     private List<Player> generatePlayers() {
         Random random = new Random();
         List<Player> playerList = new ArrayList<>();
@@ -144,12 +154,13 @@ class TrainingGroup {
         return playerList;
     }
 }
-
+// Main class for the RugbyClub program
 public class RugbyClub {
     private static List<Staff> staffList = new ArrayList<>();
     private static List<CoachingStaff> coachingStaffList = new ArrayList<>();
     private static List<TrainingGroup> trainingGroups = new ArrayList<>();
 
+    // Main method
     public static void main(String[] args) {
         // Generate initial data
         generateClubStaff();
@@ -163,6 +174,7 @@ public class RugbyClub {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+            // Display menu options
             System.out.println("\nMenu:");
             System.out.println("1. List all staff");
             System.out.println("2. List staff by category");
@@ -173,10 +185,11 @@ public class RugbyClub {
             System.out.println("7. Exit");
 
             try {
+                // Get user choice
                 System.out.print("Enter your choice: ");
                 int choice = scanner.nextInt();
                 scanner.nextLine();
-
+                // Process user choice
                 switch (choice) {
                     case 1:
                         listAllStaff();
@@ -214,7 +227,7 @@ public class RugbyClub {
     private static void generateClubStaff() {
         Random random = new Random();
         String[] clubStaffTypes = {"GroundStaff", "Caretaker", "Physio"};
-
+        // Generate Club Staff members
         for (int i = 0; i < 7; i++) {
             String name = generateRandomName();
             String type = clubStaffTypes[random.nextInt(clubStaffTypes.length)];
@@ -255,7 +268,7 @@ public class RugbyClub {
     private static void generateTrainingGroups() {
         Random random = new Random();
         String[] groupIdentifiers = {"A Squad", "B Squad", "Under-13 Squad"};
-
+        // Generate Training Groups
         for (int i = 0; i < 20; i++) {
             String identifier = groupIdentifiers[random.nextInt(groupIdentifiers.length)] + i;
             int playerCount = random.nextInt(30) + 1;
@@ -269,7 +282,7 @@ public class RugbyClub {
     private static void assignCoachesToGroups() {
         Random random = new Random();
         List<CoachingStaff> availableCoaches = new ArrayList<>(coachingStaffList);
-
+        // Assign coaches to training groups
         for (TrainingGroup group : trainingGroups) {
             if (availableCoaches.isEmpty()) {
                 System.out.println("Warning: Not enough coaches available to assign to all groups.");
@@ -284,6 +297,7 @@ public class RugbyClub {
     // Function to list all staff
     private static void listAllStaff() {
         System.out.println("\nList of all staff:");
+        // Iterate over staffList and display information based on the staff type
         for (Staff staff : staffList) {
             if (staff instanceof ClubStaff) {
                 // Display Club Staff
@@ -307,10 +321,11 @@ public class RugbyClub {
         System.out.println("2. Coaching Staff");
 
         try {
+            // Get user choice
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
-
+            // Process user choice
             switch (choice) {
                 case 1:
                     listClubStaff();
@@ -330,6 +345,7 @@ public class RugbyClub {
     // Function to list club staff
     private static void listClubStaff() {
         System.out.println("\nList of club staff:");
+        // Iterate over staffList and display Club Staff information
         for (Staff staff : staffList) {
             if (staff instanceof ClubStaff) {
                 ClubStaff clubStaff = (ClubStaff) staff;
@@ -346,6 +362,7 @@ public class RugbyClub {
         String coachName = scanner.next();
 
         System.out.println("\nPlayers coached by " + coachName + ":");
+        // Iterate over trainingGroups and display players coached by the specified coach
         for (TrainingGroup group : trainingGroups) {
             CoachingStaff coach = group.getCoach();
             if (coach != null && coach.getName().equalsIgnoreCase(coachName)) {
@@ -361,6 +378,7 @@ public class RugbyClub {
     //Function to list all players in a club
     private static void listAllPlayers() {
         System.out.println("\nList of all players in the club:");
+        // Iterate over trainingGroups and display information for all players in the club
         for (TrainingGroup group : trainingGroups) {
             List<Player> players = group.getPlayers();
             for (Player player : players) {
@@ -380,6 +398,7 @@ public class RugbyClub {
     // Function to list Coaching staff
     private static void listCoachingStaff() {
         System.out.println("\nList of coaching staff:");
+        // Iterate over staffList and display Coaching Staff information
         for (Staff staff : staffList) {
             if (staff instanceof CoachingStaff) {
                 CoachingStaff coachingStaff = (CoachingStaff) staff;
@@ -405,6 +424,7 @@ public class RugbyClub {
         String trainingDay = scanner.next();
 
         System.out.println("\nList of groups training on " + trainingDay + ":");
+        // Iterate over trainingGroups and display groups training on the specified day
         for (TrainingGroup group : trainingGroups) {
             String coachName = (group.getCoach() != null) ? group.getCoach().getName() : "No Coach Assigned";
 
