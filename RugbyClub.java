@@ -104,12 +104,22 @@ class TrainingGroup {
     private List<Player> players;
 
     // Constructor for TrainingGroup class
+    // Constructor for TrainingGroup class
     public TrainingGroup(String identifier, int playerCount, String trainingDay) {
-        this.identifier = identifier;
+    this.identifier = identifier;
+    
+    // Ensure that playerCount is at least 10
+    if (playerCount < 10) {
+        System.out.println("Loading...Assigning Players to their groups :)");
+        this.playerCount = 10;
+    } else {
         this.playerCount = playerCount;
-        this.trainingDay = trainingDay;
-        this.players = generatePlayers();
     }
+    
+    this.trainingDay = trainingDay;
+    this.players = generatePlayers(); // Generates a list of players for the group
+}
+
 
     // Getter method for the identifier of the training group
     public String getIdentifier() {
